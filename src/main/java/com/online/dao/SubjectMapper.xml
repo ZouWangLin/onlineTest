@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.online.dao.SubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.online.entity.Subject" >
+    <id column="subjectId" property="subjectid" jdbcType="INTEGER" />
+    <result column="subjectTitle" property="subjecttitle" jdbcType="VARCHAR" />
+    <result column="subjectOptionA" property="subjectoptiona" jdbcType="VARCHAR" />
+    <result column="subjectOptionB" property="subjectoptionb" jdbcType="VARCHAR" />
+    <result column="subjectOptionC" property="subjectoptionc" jdbcType="VARCHAR" />
+    <result column="subjectOptionD" property="subjectoptiond" jdbcType="VARCHAR" />
+    <result column="subjectAnswer" property="subjectanswer" jdbcType="VARCHAR" />
+    <result column="subjectParse" property="subjectparse" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    subjectId, subjectTitle, subjectOptionA, subjectOptionB, subjectOptionC, subjectOptionD, 
+    subjectAnswer, subjectParse
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.online.entity.SubjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from subject
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from subject
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from subject
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.online.entity.SubjectExample" >
+    delete from subject
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.online.entity.Subject" >
+  <selectKey keyColumn="subjectid" order="AFTER" resultType="Integer" keyProperty="subjectid">
+        SELECT  LAST_INSERT_ID()
+    </selectKey>
+    insert into subject (subjectId, subjectTitle, subjectOptionA, 
+      subjectOptionB, subjectOptionC, subjectOptionD, 
+      subjectAnswer, subjectParse)
+    values (#{subjectid,jdbcType=INTEGER}, #{subjecttitle,jdbcType=VARCHAR}, #{subjectoptiona,jdbcType=VARCHAR}, 
+      #{subjectoptionb,jdbcType=VARCHAR}, #{subjectoptionc,jdbcType=VARCHAR}, #{subjectoptiond,jdbcType=VARCHAR}, 
+      #{subjectanswer,jdbcType=VARCHAR}, #{subjectparse,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.online.entity.Subject" >
+    insert into subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subjectid != null" >
+        subjectId,
+      </if>
+      <if test="subjecttitle != null" >
+        subjectTitle,
+      </if>
+      <if test="subjectoptiona != null" >
+        subjectOptionA,
+      </if>
+      <if test="subjectoptionb != null" >
+        subjectOptionB,
+      </if>
+      <if test="subjectoptionc != null" >
+        subjectOptionC,
+      </if>
+      <if test="subjectoptiond != null" >
+        subjectOptionD,
+      </if>
+      <if test="subjectanswer != null" >
+        subjectAnswer,
+      </if>
+      <if test="subjectparse != null" >
+        subjectParse,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subjectid != null" >
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="subjecttitle != null" >
+        #{subjecttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiona != null" >
+        #{subjectoptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionb != null" >
+        #{subjectoptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionc != null" >
+        #{subjectoptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiond != null" >
+        #{subjectoptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectanswer != null" >
+        #{subjectanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectparse != null" >
+        #{subjectparse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.online.entity.SubjectExample" resultType="java.lang.Integer" >
+    select count(*) from subject
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update subject
+    <set >
+      <if test="record.subjectid != null" >
+        subjectId = #{record.subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjecttitle != null" >
+        subjectTitle = #{record.subjecttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectoptiona != null" >
+        subjectOptionA = #{record.subjectoptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectoptionb != null" >
+        subjectOptionB = #{record.subjectoptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectoptionc != null" >
+        subjectOptionC = #{record.subjectoptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectoptiond != null" >
+        subjectOptionD = #{record.subjectoptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectanswer != null" >
+        subjectAnswer = #{record.subjectanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectparse != null" >
+        subjectParse = #{record.subjectparse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update subject
+    set subjectId = #{record.subjectid,jdbcType=INTEGER},
+      subjectTitle = #{record.subjecttitle,jdbcType=VARCHAR},
+      subjectOptionA = #{record.subjectoptiona,jdbcType=VARCHAR},
+      subjectOptionB = #{record.subjectoptionb,jdbcType=VARCHAR},
+      subjectOptionC = #{record.subjectoptionc,jdbcType=VARCHAR},
+      subjectOptionD = #{record.subjectoptiond,jdbcType=VARCHAR},
+      subjectAnswer = #{record.subjectanswer,jdbcType=VARCHAR},
+      subjectParse = #{record.subjectparse,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.online.entity.Subject" >
+    update subject
+    <set >
+      <if test="subjecttitle != null" >
+        subjectTitle = #{subjecttitle,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiona != null" >
+        subjectOptionA = #{subjectoptiona,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionb != null" >
+        subjectOptionB = #{subjectoptionb,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptionc != null" >
+        subjectOptionC = #{subjectoptionc,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectoptiond != null" >
+        subjectOptionD = #{subjectoptiond,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectanswer != null" >
+        subjectAnswer = #{subjectanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectparse != null" >
+        subjectParse = #{subjectparse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.online.entity.Subject" >
+    update subject
+    set subjectTitle = #{subjecttitle,jdbcType=VARCHAR},
+      subjectOptionA = #{subjectoptiona,jdbcType=VARCHAR},
+      subjectOptionB = #{subjectoptionb,jdbcType=VARCHAR},
+      subjectOptionC = #{subjectoptionc,jdbcType=VARCHAR},
+      subjectOptionD = #{subjectoptiond,jdbcType=VARCHAR},
+      subjectAnswer = #{subjectanswer,jdbcType=VARCHAR},
+      subjectParse = #{subjectparse,jdbcType=VARCHAR}
+    where subjectId = #{subjectid,jdbcType=INTEGER}
+  </update>
+</mapper>
