@@ -4,6 +4,9 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="pagehelper-3.4.2-fix.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/pagehelper/pagehelper">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="online-web"/>
         <property name="java-output-path" value="/online-web/target/classes"/>
     </wb-module>

@@ -2,14 +2,20 @@
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.online.dao.TeacherMapper;
+import com.online.entity.Teacher;
 
 public class TestWord {
+	@Autowired
+	private TeacherMapper teacherMapper;
 	@Test  
 	   public void testSimpleWrite() throws Exception {  
 	      //新建一个文档  
@@ -29,6 +35,16 @@ public class TestWord {
 	      doc.write(os);  
 	      os.close();
 	   } 
+	
+	@Test
+	public void testMapper(){
+		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+		Teacher teacher = new Teacher();
+		teacher.setTeacherid(100);
+		teacher.setUsername("test");
+		teacher.setPassword("test");
+		teacherMapper.insert(teacher);
+	}
 
 }
 */
